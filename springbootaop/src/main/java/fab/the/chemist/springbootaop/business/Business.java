@@ -19,6 +19,10 @@ public class Business {
 		//Business Logic
 		String value = dao.retrieveSomething();
 		logger.info("In Business - {}", value);
+		
+		String value0 = dao.retrieveSomething2();
+		logger.info("In Business ** - {}", value0);
+		
 		return value;
 	}
 }
