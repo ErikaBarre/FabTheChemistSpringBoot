@@ -1,0 +1,4 @@
+2019-01-09 20:23:08 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: La table "FAB_PERSON" existe déjà
+Table "FAB_PERSON" already exists; SQL statement:
+create table fab_person ( PE_ID integer not null, PE_NAME varchar(255) not null, PE_LOCATION varchar(255), PE_BIRTH_DATE timestamp, primary key(PE_ID) ) [42101-197]
