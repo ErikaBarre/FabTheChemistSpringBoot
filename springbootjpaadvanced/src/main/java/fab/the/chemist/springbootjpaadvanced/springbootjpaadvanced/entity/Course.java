@@ -7,11 +7,21 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+//si on a une seul query
+//@NamedQuery(name="get_all_course", query="select c from Course c")
+//si on a plusieurs queries
+@NamedQueries(value= {
+		@NamedQuery(name="get_all_course", query="select c from Course c"),
+		@NamedQuery(name="get_all_course_by_name", query="select c from Course c where name like 'JPA'")
+})
 
 @Entity
 @Table(name="FAB_COURSE")
