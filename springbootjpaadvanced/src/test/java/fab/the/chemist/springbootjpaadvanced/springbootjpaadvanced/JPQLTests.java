@@ -46,18 +46,31 @@ public class JPQLTests {
 	}
 	
 	@Test
-	public void testFindById() {
+	public void testJpql() {
 		//List<Course> listresult = entityManager.createQuery("select c from Course where name like 'JPA'", Course.class).getResultList();
 		TypedQuery<Course> listresult = entityManager.createQuery("select c from Course c", Course.class);
 		List<Course> lc = listresult.getResultList();
 		for(Course c : lc) {
-			logger.info("{}", c.getName());
+			logger.info("Jpql {}", c.getName());
 		}		
 		
 		
 		assertTrue(true);
 	}
 
+	@Test
+	public void testJpqlNamesQuery() {
+		//List<Course> listresult = entityManager.createQuery("select c from Course where name like 'JPA'", Course.class).getResultList();
+		TypedQuery<Course> listresult = entityManager.createNamedQuery("get_all_course", Course.class);
+		List<Course> lc = listresult.getResultList();
+		for(Course c : lc) {
+			logger.info("JpqlNamesQuery( {}", c.getName());
+		}		
+		
+		
+		assertTrue(true);
+	}
+	
 	@Test
 	public void testFindByIdp() {
 		//List<Course> listresult = entityManager.createQuery("select c from Course where name like 'JPA'", Course.class).getResultList();
@@ -71,6 +84,17 @@ public class JPQLTests {
 		assertTrue(true);
 	}
 	
+	@Test
+	public void testJpsqlNamesQueries() {
+		TypedQuery<Course> listresult = entityManager.createNamedQuery("get_all_course_by_name", Course.class);
+		List<Course> lc = listresult.getResultList();
+		for(Course c : lc) {
+			logger.info("{}", c.getName());
+		}		
+		
+		
+		assertTrue(true);
+	}
 	
 }
 

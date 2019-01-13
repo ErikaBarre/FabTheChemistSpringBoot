@@ -9,6 +9,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -76,6 +77,19 @@ public class NativeTests {
 	}
 	
 	@Test
+	public void testNativeTypeParameterNumber2() {
+		Query query = entityManager.createNativeQuery("select * from fab_course where co_id = :id", Course.class);
+		query.setParameter("id", 10001L);	
+		List<Course> lc = query.getResultList();
+		for(Course c : lc) {
+			logger.info("native {}", c.getName());
+		}		
+		
+		
+		assertTrue(true);
+	}
+	
+	@Test
 	public void testNativeTypeParameterString() {
 		Query query = entityManager.createNativeQuery("select * from fab_course where co_name = ?", Course.class);
 		query.setParameter(1, "JPA");	
@@ -88,5 +102,15 @@ public class NativeTests {
 		assertTrue(true);
 	}
 	
+	//pas oublier l'annotation transactional car on exécute directement dans le test unitaire
+	@Test
+	@Transactional
+	public void testNativeTypeParameterStringUpdate() {
+		Query query = entityManager.createNativeQuery("update fab_course set last_updated_date = sysdate()", Course.class);
+		
+		int lc = query.executeUpdate();
+		logger.info("update native {}", lc);
+		assertTrue(true);
+	}
 }
 
