@@ -11,3 +11,8 @@ insert into FAB_PASSPORT (PA_ID, PA_NUMBER) values (30001, 'EM47859');
 insert into FAB_PASSPORT (PA_ID, PA_NUMBER) values (30002, 'YK45659');
 insert into FAB_PASSPORT (PA_ID, PA_NUMBER) values (30003, 'KI47836');
 insert into FAB_PASSPORT (PA_ID, PA_NUMBER) values (30004, 'WQ49659');
+
+insert into FAB_REVIEW (RE_ID, RE_RATING, RE_DESCRIPTION) values (40001, 'Good lesson');
+insert into FAB_REVIEW (RE_ID, RE_RATING, RE_DESCRIPTION) values (40002, 'Good lesson');
+insert into FAB_REVIEW (RE_ID, RE_RATING, RE_DESCRIPTION) values (40003, 'Good lesson');
+insert into FAB_REVIEW (RE_ID, RE_RATING, RE_DESCRIPTION) values (40004, 'Good lesson');
