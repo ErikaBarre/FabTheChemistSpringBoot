@@ -1,0 +1,92 @@
+package fab.the.chemist.springbootjpaadvanced.springbootjpaadvanced;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import fab.the.chemist.springbootjpaadvanced.springbootjpaadvanced.entity.Course;
+import fab.the.chemist.springbootjpaadvanced.springbootjpaadvanced.repository.CourseRepository;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class NativeTests {
+
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	@Autowired
+	CourseRepository repository;
+	
+	@Autowired
+	EntityManager entityManager;
+		
+	@Test
+	public void testNative() {
+		Query query = entityManager.createNativeQuery("select * from fab_course");
+		List lc = query.getResultList();
+		
+		logger.info("{}",lc);
+		
+//		for(Course c : lc) {
+//			logger.info("native {}", c.toString()());
+//		}		
+		
+		
+		assertTrue(true);
+	}
+
+	
+	@Test
+	public void testNativeType() {
+		Query query = entityManager.createNativeQuery("select * from fab_course", Course.class);
+		List<Course> lc = query.getResultList();
+		for(Course c : lc) {
+			logger.info("native {}", c.getName());
+		}		
+		
+		
+		assertTrue(true);
+	}
+
+	@Test
+	public void testNativeTypeParameterNumber() {
+		Query query = entityManager.createNativeQuery("select * from fab_course where co_id = ?", Course.class);
+		query.setParameter(1, 10001L);	
+		List<Course> lc = query.getResultList();
+		for(Course c : lc) {
+			logger.info("native {}", c.getName());
+		}		
+		
+		
+		assertTrue(true);
+	}
+	
+	@Test
+	public void testNativeTypeParameterString() {
+		Query query = entityManager.createNativeQuery("select * from fab_course where co_name = ?", Course.class);
+		query.setParameter(1, "JPA");	
+		List<Course> lc = query.getResultList();
+		for(Course c : lc) {
+			logger.info("native {}", c.getName());
+		}		
+		
+		
+		assertTrue(true);
+	}
+	
+}
+
