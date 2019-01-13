@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import fab.the.chemist.springbootjpaadvanced.springbootjpaadvanced.entity.Course;
 import fab.the.chemist.springbootjpaadvanced.springbootjpaadvanced.repository.CourseRepository;
+import fab.the.chemist.springbootjpaadvanced.springbootjpaadvanced.repository.StudentRepository;
 
 @SpringBootApplication
 public class SpringbootjpaadvancedApplication implements CommandLineRunner {
@@ -17,6 +18,9 @@ public class SpringbootjpaadvancedApplication implements CommandLineRunner {
 	
 	@Autowired
 	CourseRepository repository;
+	
+	@Autowired
+	StudentRepository studentRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(SpringbootjpaadvancedApplication.class, args);
@@ -43,7 +47,9 @@ public class SpringbootjpaadvancedApplication implements CommandLineRunner {
 		
 		//repository.playWithEntityManager();
 		//repository.playWithEntityManagerDetach();
-		repository.playWithEntityManagerRefresh();
+		//repository.playWithEntityManagerRefresh();
+		
+		studentRepository.saveStudentWithPassport("Luke", "DD78856");
 		
 		
 

@@ -47,6 +47,12 @@ public class Student {
 		this.name = name;
 	}
 	
+	public Student(String name, Passport passport) {
+		super();
+		this.name = name;
+		this.passport = passport;
+	}
+	
 	public Long getId() {
 		return id;
 	}
