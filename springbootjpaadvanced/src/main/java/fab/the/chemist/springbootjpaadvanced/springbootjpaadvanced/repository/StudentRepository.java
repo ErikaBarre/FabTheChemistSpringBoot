@@ -111,4 +111,18 @@ public class StudentRepository {
 		entityManager.flush();
 	}
 	
+	public void retriveStudentPassportUpdate() {
+		Student student = entityManager.find(Student.class, 20001L);
+		//ici le persistent context s'effectue sur student
+		
+		Passport passport = student.getPassport();
+		//ici le persistent context s'effectue sur student et passport
+		
+		passport.setNumber("BP7854");
+		//ici le persistent context s'effectue sur student et passport modifé
+		
+		student.setName("Rocco");
+		//ici le persistent context s'effectue sur student modifié et passport modifié
+	}
+	
 }

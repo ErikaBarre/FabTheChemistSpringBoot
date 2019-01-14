@@ -5,11 +5,14 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -27,6 +30,10 @@ public class Passport {
 	@Column(name="PA_NUMBER", nullable=false)
 	private String number; 
 
+	@JoinColumn(name="PA_STUDENT_ID")
+	@OneToOne(fetch = FetchType.LAZY, mappedBy="passport")  //en plaçant mappedby, on évite la création de la colonne student_id , jpa connait le lien
+	private Student student;
+	
 	@UpdateTimestamp
 	private LocalDateTime lastUpdateDate	;
 	
@@ -57,6 +64,14 @@ public class Passport {
 	}
 	
 	
+	public Student getStudent() {
+		return student;
+	}
+
+	public void setStudent(Student student) {
+		this.student = student;
+	}
+
 	@Override
 	public String toString() {
 		return "Passport [id=" + id + ", name=" + number + "]";
