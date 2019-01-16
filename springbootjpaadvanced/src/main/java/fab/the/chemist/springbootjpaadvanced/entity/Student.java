@@ -1,7 +1,8 @@
-package fab.the.chemist.springbootjpaadvanced.springbootjpaadvanced.entity;
+package fab.the.chemist.springbootjpaadvanced.entity;
 
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -33,6 +37,21 @@ public class Student {
 	@JoinColumn(name="ST_PASSPORT_ID")
 	@OneToOne(fetch = FetchType.LAZY)
 	private Passport passport;
+	
+	/**
+	 * on definit la table intermédiaire du coté qui n'est pas mappedby
+	 * c'est l'autre orm qui sera mappedby (ici "course")
+	 * on definit la colonne FK correspondant à l'ID de cette classe
+	 * et la colonne (inverse) correspondant à l'ID de la classe dont la colonne est mappedby
+	 * 
+	 * super avantage : pas besoin de créer une table intermédiaire dans les ORM, jpa pourra effectuer des modifications dessus 
+	 */
+	@JoinTable(name="FAB_COURSE_STUDENT",
+			joinColumns=@JoinColumn(name="CS_STUDENT_ID"),
+			inverseJoinColumns=@JoinColumn(name="CS_COURSE_ID")
+			)
+	@ManyToMany
+	private List<Course> courses;
 	
 	@UpdateTimestamp
 	private LocalDateTime lastUpdateDate	;
@@ -77,6 +96,22 @@ public class Student {
 		this.passport = passport;
 	}
 
+	public List<Course> getCourses() {
+		return courses;
+	}
+
+	public void setCourses(List<Course> courses) {
+		this.courses = courses;
+	}
+
+	public void addCourse(Course course) {
+		this.courses.add(course);
+	}
+
+	public void removeCourse(Course course) {
+		this.courses.remove(course);
+	}
+	
 	@Override
 	public String toString() {
 		return "Student [id=" + id + ", name=" + name + "]";

@@ -1,18 +1,25 @@
-package fab.the.chemist.springbootjpaadvanced.springbootjpaadvanced.repository;
+package fab.the.chemist.springbootjpaadvanced.repository;
+
+import java.util.List;
 
 import javax.persistence.EntityManager;
 //import javax.transaction.Transactional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import fab.the.chemist.springbootjpaadvanced.springbootjpaadvanced.entity.Course;
+import fab.the.chemist.springbootjpaadvanced.entity.Course;
+import fab.the.chemist.springbootjpaadvanced.entity.Review;
 
 @Transactional
 @Repository
 public class CourseRepository {
 
+	private Logger logger = LoggerFactory.getLogger(CourseRepository.class);
+	
 	@Autowired
 	EntityManager entityManager;
 	
@@ -96,6 +103,29 @@ public class CourseRepository {
 		
 		
 		entityManager.flush();
+	}
+
+	public void addReviewsForCourse(long courseId, List<Review> newReviews) {
+		//get the course to review
+		Course course = findById(courseId);
+		logger.info("course info {}", course.getReviews());
+		//setting the relationshipt
+		for(Review newReview:newReviews) {
+			course.addReview(newReview);
+			newReview.setCourse(course);
+			//save in DB
+			entityManager.persist(newReview);
+		}
+		
+		
+	}
+	
+	public List<Review> retrieveReviewsForCourses(){
+		//Course course = repository.
+		Course course = findById(10001L);
+		List<Review> reviews = course.getReviews();
+		logger.info("course {}",course.getReviews());
+		return reviews;
 	}
 	
 }

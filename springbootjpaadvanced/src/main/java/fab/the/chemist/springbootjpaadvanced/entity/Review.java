@@ -1,4 +1,4 @@
-package fab.the.chemist.springbootjpaadvanced.springbootjpaadvanced.entity;
+package fab.the.chemist.springbootjpaadvanced.entity;
 
 
 import java.time.LocalDateTime;
@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -30,6 +32,15 @@ public class Review {
 	@Column(name="RE_DESCRIPTION")
 	private String description; 
 
+	/**
+	 * dans ce cas d'un manytoone, on constate que si on veut ramener un course sur base de la review,
+	 * hibernate effectue toujours par defaut un EAGER fetching
+	 * hibernate fait tout le jointure dans ce sens là 
+	 */
+	@JoinColumn(name = "RE_COURSE_ID")
+	@ManyToOne
+	private Course course;
+	
 	@UpdateTimestamp
 	private LocalDateTime lastUpdateDate	;
 	
@@ -67,6 +78,14 @@ public class Review {
 		this.description = description;
 	}
 	
+	public Course getCourse() {
+		return course;
+	}
+
+	public void setCourse(Course course) {
+		this.course = course;
+	}
+
 	@Override
 	public String toString() {
 		return "Review [id=" + id + ", rating=" + rating + ", description=" + description + ", lastUpdateDate="

@@ -1,8 +1,11 @@
-package fab.the.chemist.springbootjpaadvanced.springbootjpaadvanced;
+package fab.the.chemist.springbootjpaadvanced;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+
+import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,8 +16,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import fab.the.chemist.springbootjpaadvanced.springbootjpaadvanced.entity.Course;
-import fab.the.chemist.springbootjpaadvanced.springbootjpaadvanced.repository.CourseRepository;
+import fab.the.chemist.springbootjpaadvanced.entity.Course;
+import fab.the.chemist.springbootjpaadvanced.entity.Student;
+import fab.the.chemist.springbootjpaadvanced.repository.CourseRepository;
+import fab.the.chemist.springbootjpaadvanced.repository.ReviewRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -24,6 +29,12 @@ public class SpringbootjpaadvancedApplicationTests {
 	
 	@Autowired
 	CourseRepository repository;
+	
+	@Autowired
+	ReviewRepository reviewRepository;
+	
+	@Autowired
+	EntityManager entityManager;
 	
 	//@Test
 	public void testFindById() {
@@ -61,9 +72,28 @@ public class SpringbootjpaadvancedApplicationTests {
 	public void testPlayWithEntityManager() {
 		repository.playWithEntityManager();
 		
+	}
+	
+	@Test
+	public void testRetrieveReviewsForCourses() {
+		repository.retrieveReviewsForCourses();
 		
 	}
 	
+	@Test
+	public void testRetrieveCourseForReview() {
+		reviewRepository.retrieveCourseForReview();
+		
+	}
+	
+	@Test
+	@Transactional
+	public void testRetrieveStudentCourse() {
+		Student student = entityManager.find(Student.class, 20001L);
+		logger.info("student {}", student);
+		logger.info("course {}", student.getCourses());
+		
+	}
 	
 }
 

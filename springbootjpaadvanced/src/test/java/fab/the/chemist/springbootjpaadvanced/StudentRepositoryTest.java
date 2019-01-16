@@ -1,4 +1,4 @@
-package fab.the.chemist.springbootjpaadvanced.springbootjpaadvanced;
+package fab.the.chemist.springbootjpaadvanced;
 
 import static org.junit.Assert.*;
 
@@ -13,9 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import fab.the.chemist.springbootjpaadvanced.springbootjpaadvanced.entity.Passport;
-import fab.the.chemist.springbootjpaadvanced.springbootjpaadvanced.entity.Student;
-import fab.the.chemist.springbootjpaadvanced.springbootjpaadvanced.repository.StudentRepository;
+import fab.the.chemist.springbootjpaadvanced.entity.Passport;
+import fab.the.chemist.springbootjpaadvanced.entity.Student;
+import fab.the.chemist.springbootjpaadvanced.repository.StudentRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

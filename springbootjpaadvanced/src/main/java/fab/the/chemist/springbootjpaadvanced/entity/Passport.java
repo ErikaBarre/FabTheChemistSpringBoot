@@ -1,4 +1,4 @@
-package fab.the.chemist.springbootjpaadvanced.springbootjpaadvanced.entity;
+package fab.the.chemist.springbootjpaadvanced.entity;
 
 
 import java.time.LocalDateTime;

@@ -1,4 +1,4 @@
-package fab.the.chemist.springbootjpaadvanced.springbootjpaadvanced.repository;
+package fab.the.chemist.springbootjpaadvanced.repository;
 
 import javax.persistence.EntityManager;
 //import javax.transaction.Transactional;
@@ -7,8 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import fab.the.chemist.springbootjpaadvanced.springbootjpaadvanced.entity.Passport;
-import fab.the.chemist.springbootjpaadvanced.springbootjpaadvanced.entity.Student;
+import fab.the.chemist.springbootjpaadvanced.entity.Course;
+import fab.the.chemist.springbootjpaadvanced.entity.Passport;
+import fab.the.chemist.springbootjpaadvanced.entity.Student;
 
 @Transactional
 @Repository
@@ -124,5 +125,27 @@ public class StudentRepository {
 		student.setName("Rocco");
 		//ici le persistent context s'effectue sur student modifié et passport modifié
 	}
+	
+	  public void insertStudentInCourse() {
+	        Student student = new Student("Jack");
+	        Course course = new Course("Microservices strategy");
+	        entityManager.persist(student);
+	        entityManager.persist(course);
+	        student.addCourse(course);
+	        course.addStudent(student);
+	        //si on update uniquement student, hibernate fait le travail de remplissage de la table intermédiaire
+	        //pas besoin d'updater course
+	        entityManager.persist(student);
+	       
+	       
+	    }
+	   
+	    public void insertStudentInCourse(Student student, Course course) {
+	        student.addCourse(course);
+	        course.addStudent(student);
+	        entityManager.persist(student);
+	        entityManager.persist(course);
+	           
+	    }
 	
 }

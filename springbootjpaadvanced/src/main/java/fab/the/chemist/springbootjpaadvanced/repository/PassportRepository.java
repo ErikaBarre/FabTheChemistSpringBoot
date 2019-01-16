@@ -1,4 +1,4 @@
-package fab.the.chemist.springbootjpaadvanced.springbootjpaadvanced.repository;
+package fab.the.chemist.springbootjpaadvanced.repository;
 
 import javax.persistence.EntityManager;
 //import javax.transaction.Transactional;
@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import fab.the.chemist.springbootjpaadvanced.springbootjpaadvanced.entity.Passport;
+import fab.the.chemist.springbootjpaadvanced.entity.Passport;
 @Transactional
 @Repository
 public class PassportRepository {

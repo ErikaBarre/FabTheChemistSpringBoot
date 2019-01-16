@@ -1,4 +1,8 @@
-package fab.the.chemist.springbootjpaadvanced.springbootjpaadvanced;
+package fab.the.chemist.springbootjpaadvanced;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,9 +11,16 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import fab.the.chemist.springbootjpaadvanced.springbootjpaadvanced.entity.Course;
-import fab.the.chemist.springbootjpaadvanced.springbootjpaadvanced.repository.CourseRepository;
-import fab.the.chemist.springbootjpaadvanced.springbootjpaadvanced.repository.StudentRepository;
+import fab.the.chemist.springbootjpaadvanced.entity.Course;
+import fab.the.chemist.springbootjpaadvanced.entity.Employee;
+import fab.the.chemist.springbootjpaadvanced.entity.FullTimeEmployee;
+import fab.the.chemist.springbootjpaadvanced.entity.PartTimeEmployee;
+import fab.the.chemist.springbootjpaadvanced.entity.Review;
+import fab.the.chemist.springbootjpaadvanced.entity.Student;
+import fab.the.chemist.springbootjpaadvanced.repository.CourseRepository;
+import fab.the.chemist.springbootjpaadvanced.repository.EmployeeRepository;
+import fab.the.chemist.springbootjpaadvanced.repository.StudentRepository;
+import net.bytebuddy.implementation.bind.annotation.Empty;
 
 @SpringBootApplication
 public class SpringbootjpaadvancedApplication implements CommandLineRunner {
@@ -21,6 +32,9 @@ public class SpringbootjpaadvancedApplication implements CommandLineRunner {
 	
 	@Autowired
 	StudentRepository studentRepository;
+	
+	@Autowired
+	EmployeeRepository employeeRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(SpringbootjpaadvancedApplication.class, args);
@@ -49,10 +63,28 @@ public class SpringbootjpaadvancedApplication implements CommandLineRunner {
 		//repository.playWithEntityManagerDetach();
 		//repository.playWithEntityManagerRefresh();
 		
-		studentRepository.saveStudentWithPassport("Luke", "DD78856");
+		//studentRepository.saveStudentWithPassport("Luke", "DD78856");
+		/*
+		List<Review> reviews = new ArrayList<Review>();
+		reviews.add(new Review("4", "mega very nice review"));
+		reviews.add(new Review("5", "awsome dude"));
+			
+		repository.addReviewsForCourse(10001L,reviews);
+		*/
+		/*
+		studentRepository.insertStudentInCourse();
+		studentRepository.insertStudentInCourse(new Student("Jack"), new Course("Microservices strategy"));
+		*/
 		
+		//inheritance
+		/*
+		employeeRepository.insert(new FullTimeEmployee("Natalie", new BigDecimal(10000)));
+		employeeRepository.insert(new PartTimeEmployee("Julie", new BigDecimal(50)));
 		
-
+		List<Employee> employees = employeeRepository.findAll();
+		logger.info("employees -> {}", 	employees);
+		*/
+		
 		
 	}
 

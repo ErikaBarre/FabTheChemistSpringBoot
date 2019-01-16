@@ -1,4 +1,4 @@
-package fab.the.chemist.springbootjpaadvanced.springbootjpaadvanced;
+package fab.the.chemist.springbootjpaadvanced;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -20,8 +20,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import fab.the.chemist.springbootjpaadvanced.springbootjpaadvanced.entity.Course;
-import fab.the.chemist.springbootjpaadvanced.springbootjpaadvanced.repository.CourseRepository;
+import fab.the.chemist.springbootjpaadvanced.entity.Course;
+import fab.the.chemist.springbootjpaadvanced.repository.CourseRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
