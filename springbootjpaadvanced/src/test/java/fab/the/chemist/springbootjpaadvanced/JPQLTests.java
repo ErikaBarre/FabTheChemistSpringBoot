@@ -85,7 +85,7 @@ public class JPQLTests {
 	@Test
 	public void testJpqlNamesQueryNative() {
 		//List<Course> listresult = entityManager.createQuery("select c from Course where name like 'JPA'", Course.class).getResultList();
-		TypedQuery<Course> listresult = entityManager.createNamedQuery("get_all_course_n", Course.class);     //("get_all_course_n", Course.class);
+		Query listresult = entityManager.createNamedQuery("selectAuthorNames"); //("get_all_course_n");     //("get_all_course_n", Course.class);
 		List<Course> lc = listresult.getResultList();
 		for(Course c : lc) {
 			logger.info("JpqlNamesQuery( {}", c.getName());

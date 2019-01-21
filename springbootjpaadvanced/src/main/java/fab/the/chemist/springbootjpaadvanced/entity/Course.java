@@ -34,6 +34,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 		@NamedQuery(name="get_all_course_by_name", query="select c from Course c where name like 'JPA'")
 })
 @NamedNativeQueries(value= {
+		@NamedNativeQuery(name = "selectAuthorNames", query = "SELECT * FROM FAB_COURSE", resultClass = Course.class),
 		@NamedNativeQuery (name="get_all_course_n", query="select * from FAB_COURSE"),
 		@NamedNativeQuery(name="get_all_course_by_name_n", query="select * from FAB_COURSE where CO_NAME like 'JPA'")
 })

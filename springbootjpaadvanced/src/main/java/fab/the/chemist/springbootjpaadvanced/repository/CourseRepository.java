@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 //import javax.transaction.Transactional;
+import javax.persistence.Query;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -126,6 +127,19 @@ public class CourseRepository {
 		List<Review> reviews = course.getReviews();
 		logger.info("course {}",course.getReviews());
 		return reviews;
+	}
+	
+	public void nativen() {
+		
+		
+		Query listresult = entityManager.createNamedQuery("selectAuthorNames"); //("get_all_course_n");     //("get_all_course_n", Course.class);
+		List<Course> lc = listresult.getResultList();
+		for(Course c : lc) {
+			logger.info("JpqlNamesQuery( {}", c.getName());
+		}		
+		
+		
+		
 	}
 	
 }
