@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedNativeQueries;
 import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -20,6 +21,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
+//import org.hibernate.annotations.NamedNativeQueries;
 import org.hibernate.annotations.UpdateTimestamp;
 
 //si on a une seul query
@@ -29,6 +31,12 @@ import org.hibernate.annotations.UpdateTimestamp;
 		@NamedQuery(name="get_all_course", query="select c from Course c"),
 		@NamedQuery(name="get_all_course_by_name", query="select c from Course c where name like 'JPA'")
 })
+@NamedNativeQueries(value= {
+		@NamedNativeQuery (name="get_all_course_n", query="select * from FAB_COURSE"),
+		@NamedNativeQuery(name="get_all_course_by_name_n", query="select * from FAB_COURSE where CO_NAME like 'JPA'")
+})
+
+
 
 @Entity
 @Table(name="FAB_COURSE")

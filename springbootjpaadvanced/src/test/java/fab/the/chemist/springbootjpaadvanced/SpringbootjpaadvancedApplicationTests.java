@@ -36,7 +36,7 @@ public class SpringbootjpaadvancedApplicationTests {
 	@Autowired
 	EntityManager entityManager;
 	
-	//@Test
+	@Test
 	public void testFindById() {
 		logger.info("User id 10001 -> {}", repository.findById(10001L));
 		//assertEquals("JPA", repository.findById(10001L).getName());
@@ -92,7 +92,6 @@ public class SpringbootjpaadvancedApplicationTests {
 		Student student = entityManager.find(Student.class, 20001L);
 		logger.info("student {}", student);
 		logger.info("course {}", student.getCourses());
-		
 	}
 	
 }

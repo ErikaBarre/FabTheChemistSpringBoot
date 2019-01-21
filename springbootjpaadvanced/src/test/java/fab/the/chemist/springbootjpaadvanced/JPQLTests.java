@@ -44,7 +44,7 @@ public class JPQLTests {
 	@Autowired
 	EntityManager entityManager;
 	
-	//@Test
+	@Test
 	public void testFindById0() {
 		// !!!! en jpql : la table en sql correspond a l'identifiant de la classe en respectant la casse (ici "Course")
 		List<Course> listresult = entityManager.createQuery("select c from Course c").getResultList()	;
@@ -56,7 +56,7 @@ public class JPQLTests {
 		assertTrue(true);
 	}
 	
-	//@Test
+	@Test
 	public void testJpql() {
 		//List<Course> listresult = entityManager.createQuery("select c from Course where name like 'JPA'", Course.class).getResultList();
 		TypedQuery<Course> listresult = entityManager.createQuery("select c from Course c", Course.class);
@@ -69,10 +69,23 @@ public class JPQLTests {
 		assertTrue(true);
 	}
 
-	//@Test
+	@Test
 	public void testJpqlNamesQuery() {
 		//List<Course> listresult = entityManager.createQuery("select c from Course where name like 'JPA'", Course.class).getResultList();
 		TypedQuery<Course> listresult = entityManager.createNamedQuery("get_all_course", Course.class);
+		List<Course> lc = listresult.getResultList();
+		for(Course c : lc) {
+			logger.info("JpqlNamesQuery( {}", c.getName());
+		}		
+		
+		
+		assertTrue(true);
+	}
+	
+	@Test
+	public void testJpqlNamesQueryNative() {
+		//List<Course> listresult = entityManager.createQuery("select c from Course where name like 'JPA'", Course.class).getResultList();
+		TypedQuery<Course> listresult = entityManager.createNamedQuery("get_all_course_n", Course.class);     //("get_all_course_n", Course.class);
 		List<Course> lc = listresult.getResultList();
 		for(Course c : lc) {
 			logger.info("JpqlNamesQuery( {}", c.getName());
