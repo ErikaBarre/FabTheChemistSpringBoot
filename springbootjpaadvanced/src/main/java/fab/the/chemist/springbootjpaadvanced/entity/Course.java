@@ -24,6 +24,8 @@ import org.hibernate.annotations.CreationTimestamp;
 //import org.hibernate.annotations.NamedNativeQueries;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 //si on a une seul query
 //@NamedQuery(name="get_all_course", query="select c from Course c")
 //si on a plusieurs queries
@@ -75,6 +77,7 @@ public class Course {
 	 * mais dans l'autres avec les colonnes FK 
 	 */
 	@ManyToMany(mappedBy="courses")
+	@JsonIgnore
 	private List<Student> students;	
 	
 	@UpdateTimestamp
