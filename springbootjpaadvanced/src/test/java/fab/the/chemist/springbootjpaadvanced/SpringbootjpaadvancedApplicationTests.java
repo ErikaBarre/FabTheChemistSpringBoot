@@ -94,5 +94,32 @@ public class SpringbootjpaadvancedApplicationTests {
 		logger.info("course {}", student.getCourses());
 	}
 	
+	/**
+	* lors du 2eme appel dans les logs il n'y a pas de query sql qui est à nouveau effectué
+	* les données ne reviennent pas de la DB
+	* les données ont été mise en cache (1er niveau)
+	* ceci est du également à l'annotation transactional, si elle n'est pas présent 
+	* il n'y aura pas de mise en cache
+	* dans les logs on voit que la query sql est exécutée 2 fois
+	* !!! si l'annotation transactionnal est au niveau de la dao ce n'est pas la meme chose
+	* cela veut dire qu'à chaque appel de la méthode dans la dao, on crée une transaction différente
+	* pour bénéficer du cache de 1er niveau il faut également préciser l'annoation au niveau 
+	* de la méthode qui appel plusieurs fois les memes données
+	* il faut connaitre la portée de la transaction, si on le précise dans le service , 
+	* alors on utilise une seul transdaction et donc on bénéficie de 1er niveau de cache
+	* WEB ---- service ---- data ---- DB
+	*/
+	@Test
+	@Transactional
+	public void findById_firstLevelCache(){
+		Course course1 = repository.findById(10001L);
+		logger.info("first cours retrieved 1 - {}", course1);
+		
+		Course course2 = repository.findById(10001L);
+		logger.info("first cours retrieved 2 - {}", course2);
+	}
+	
+	
+	
 }
 

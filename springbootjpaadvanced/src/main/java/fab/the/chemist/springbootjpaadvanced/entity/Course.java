@@ -4,6 +4,7 @@ package fab.the.chemist.springbootjpaadvanced.entity;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -29,6 +30,29 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 //si on a une seul query
 //@NamedQuery(name="get_all_course", query="select c from Course c")
 //si on a plusieurs queries
+
+//CACHE
+//#le deuxième niveau  de cache demande de la configuration
+//#il faut signaler au framework quel données iront dans le 2eme niveau de cache
+//#modification du pom.xml
+//		org.hibernate
+//		hibernate-ehcache
+
+//second level cache dans application.properties
+//spring.jpa.properties.hibernate.cache.use_second_level_cache=true
+//specifier le type de cache , dans notre cas c'est EhCache
+//spring.jpa.properties.hibernate.cache.region.factory_class=org.hibernate.cache.ehcache.EhCacheRegionFactory
+//seulement placer en cache les données dont on veut qu'elle soit en cache
+//#voirs les options possible dans la classe, ici on utlise ENABLE_SELECTIVE 
+//spring.jpa.properties.javax.persistent.sharedCache.mode=ENABLE_SELECTIVE  
+//logging.level.net.sf.ehcache=debug
+//what data to cache
+//placer l'annotation @Cacheable dans l'entity comme "Course" par exemple
+//dans les logs on voit apparaitre "L2C"
+//"hits" obtenir les data du 2eme niveau de cache 
+//"misses" quand les données ne sont pas dnas le 2eme niveau de cache
+//"puts" quand les données vont aller dans le 2eme niveau de cache poour la 1er fois car "misses"
+
 @NamedQueries(value= {
 		@NamedQuery(name="get_all_course", query="select c from Course c"),
 		@NamedQuery(name="get_all_course_by_name", query="select c from Course c where name like 'JPA'")
@@ -38,11 +62,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 		@NamedNativeQuery (name="get_all_course_n", query="select * from FAB_COURSE"),
 		@NamedNativeQuery(name="get_all_course_by_name_n", query="select * from FAB_COURSE where CO_NAME like 'JPA'")
 })
-
-
-
 @Entity
 @Table(name="FAB_COURSE")
+@Cacheable
 public class Course {
 
 	@Id
