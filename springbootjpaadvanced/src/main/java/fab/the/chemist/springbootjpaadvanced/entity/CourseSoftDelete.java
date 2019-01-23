@@ -1,7 +1,6 @@
 package fab.the.chemist.springbootjpaadvanced.entity;
 
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -23,56 +22,32 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.SQLDelete;
 //import org.hibernate.annotations.NamedNativeQueries;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.Where;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import fab.the.chemist.springbootjpaadvanced.utils.ApplicationQueries;
-import fab.the.chemist.springbootjpaadvanced.utils.ApplicationQueries.ApplicationQuery;
+//SOFT DELETE
+//on n'a pas envie d'un delete de perdre ce qu'on a en base de données mais de stocké quelques part ce qui a été effacé
+//dans "course" ,on ajoute une propriété supplémentaire 
 
-//si on a une seul query
-//@NamedQuery(name="get_all_course", query="select c from Course c")
-//si on a plusieurs queries
 
-//CACHE
-//#le deuxième niveau  de cache demande de la configuration
-//#il faut signaler au framework quel données iront dans le 2eme niveau de cache
-//#modification du pom.xml
-//		org.hibernate
-//		hibernate-ehcache
-
-//second level cache dans application.properties
-//spring.jpa.properties.hibernate.cache.use_second_level_cache=true
-//specifier le type de cache , dans notre cas c'est EhCache
-//spring.jpa.properties.hibernate.cache.region.factory_class=org.hibernate.cache.ehcache.EhCacheRegionFactory
-//seulement placer en cache les données dont on veut qu'elle soit en cache
-//#voirs les options possible dans la classe, ici on utlise ENABLE_SELECTIVE 
-//spring.jpa.properties.javax.persistent.sharedCache.mode=ENABLE_SELECTIVE  
-//logging.level.net.sf.ehcache=debug
-//what data to cache
-//placer l'annotation @Cacheable dans l'entity comme "Course" par exemple
-//dans les logs on voit apparaitre "L2C"
-//"hits" obtenir les data du 2eme niveau de cache 
-//"misses" quand les données ne sont pas dnas le 2eme niveau de cache
-//"puts" quand les données vont aller dans le 2eme niveau de cache poour la 1er fois car "misses"
-
-@NamedQueries(value= {
-		@NamedQuery(name="get_all_course", query="select c from Course c"),
-		@NamedQuery(name="get_all_course_by_name", query="select c from Course c where name like 'JPA'")
-})
-@NamedNativeQueries(value= {
-		@NamedNativeQuery(name = "selectAuthorNames3", query = "" , resultClass = Course.class),
-		@NamedNativeQuery(name = "selectAuthorNames2", query = "SELECT CO_ID , CO_NAME FROM FAB_COURSE" , resultClass = Course.class),
-		@NamedNativeQuery(name = "selectAuthorNames", query = "SELECT * FROM FAB_COURSE", resultClass = Course.class),
-		@NamedNativeQuery (name="get_all_course_n", query="select * from FAB_COURSE"),
-		@NamedNativeQuery(name="get_all_course_by_name_n", query="select * from FAB_COURSE where CO_NAME like 'JPA'")
-})
 @Entity
 @Table(name="FAB_COURSE")
-@Cacheable  //cache de second niveau
-public class Course {
+//on doit ajouter une hibernate annotation (concernant cette propriété isdeleted)
+//pour deleted completement, on place cette propriété à true
+//il faudra ajouter un champs à la table (sinon erreur au lancement de l'application)
+@SQLDelete(sql="update FAB_COURSE set CO_IS_DELETED=true where CO_ID=?")
+@Where(clause="")
+public class CourseSoftDelete {
 
+	//propriété pour gerer le soft delete
+	//ajout d'une colonne en base de données
+	@Column(name="CO_IS_DELETE")
+	private boolean isDeleted ; 
+	
 	@Id
 	@GeneratedValue
 	@Column(name="CO_ID")
@@ -81,8 +56,6 @@ public class Course {
 	@Column(name="CO_NAME", nullable=false)
 	private String name; 
 	
-	
-	 
 	/**
 	 * il peut y avoir plueisuer review par cours
 	 * donc on va placer la FK dans review
@@ -117,12 +90,11 @@ public class Course {
 	@CreationTimestamp
 	private LocalDateTime createDate;
 	
-	protected Course() {}
+	protected CourseSoftDelete() {}
 	
-	public Course(String name)  {
+	public CourseSoftDelete(String name) {
 		super();
 		this.name = name;
-		 
 	}
 	
 	public Long getId() {

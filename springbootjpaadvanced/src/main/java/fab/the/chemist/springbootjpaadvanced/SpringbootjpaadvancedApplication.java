@@ -22,6 +22,9 @@ import fab.the.chemist.springbootjpaadvanced.entity.Student;
 import fab.the.chemist.springbootjpaadvanced.repository.CourseRepository;
 import fab.the.chemist.springbootjpaadvanced.repository.EmployeeRepository;
 import fab.the.chemist.springbootjpaadvanced.repository.StudentRepository;
+import fab.the.chemist.springbootjpaadvanced.utils.ApplicationQueries;
+import fab.the.chemist.springbootjpaadvanced.utils.ApplicationQueries.ApplicationQuery;
+
 import net.bytebuddy.implementation.bind.annotation.Empty;
 
 @SpringBootApplication
@@ -86,6 +89,15 @@ public class SpringbootjpaadvancedApplication implements CommandLineRunner {
 		List<Employee> employees = employeeRepository.findAll();
 		logger.info("employees -> {}", 	employees);
 		*/
+		
+		String sql = ApplicationQueries.getQuery(ApplicationQuery.RequestOne);
+		logger.info("sql ****** \n {}", sql);
+		
+		sql = ApplicationQueries.readFileCharArray(ApplicationQuery.RequestOne);
+		logger.info("sql ****** \n {}", sql);
+		
+		sql = ApplicationQueries.readFromInputStream(ApplicationQuery.RequestOne);
+		logger.info("sql ****** \n {}", sql);
 		
 		repository.nativen();
 		

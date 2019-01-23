@@ -1,8 +1,16 @@
+/*
 insert into FAB_COURSE (CO_ID, CO_NAME) values (10001, 'JPA');
 insert into FAB_COURSE (CO_ID, CO_NAME) values (10002, 'MVC');
 insert into FAB_COURSE (CO_ID, CO_NAME) values (10003, 'Spring Basics');
 insert into FAB_COURSE (CO_ID, CO_NAME) values (10004, 'Spring BooT');
 insert into FAB_COURSE (CO_ID, CO_NAME) values (10005, 'Node Js');
+*/
+/* soft delete */
+insert into FAB_COURSE (CO_ID, CO_NAME, CO_IS_DELETE) values (10001, 'JPA', true);
+insert into FAB_COURSE (CO_ID, CO_NAME, CO_IS_DELETE) values (10002, 'MVC', false);
+insert into FAB_COURSE (CO_ID, CO_NAME, CO_IS_DELETE) values (10003, 'Spring Basics', false);
+insert into FAB_COURSE (CO_ID, CO_NAME, CO_IS_DELETE) values (10004, 'Spring BooT', false);
+insert into FAB_COURSE (CO_ID, CO_NAME, CO_IS_DELETE) values (10005, 'Node Js', false);
 
 insert into FAB_PASSPORT (PA_ID, PA_NUMBER) values (30001, 'EM47859');
 insert into FAB_PASSPORT (PA_ID, PA_NUMBER) values (30002, 'YK45659');
