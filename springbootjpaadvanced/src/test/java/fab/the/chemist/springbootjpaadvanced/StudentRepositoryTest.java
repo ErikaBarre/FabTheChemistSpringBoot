@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import fab.the.chemist.springbootjpaadvanced.entity.Address;
 import fab.the.chemist.springbootjpaadvanced.entity.Passport;
 import fab.the.chemist.springbootjpaadvanced.entity.Student;
 import fab.the.chemist.springbootjpaadvanced.repository.StudentRepository;
@@ -69,6 +70,15 @@ public class StudentRepositoryTest {
 	public void testRetriveStudentPassportUpdate_reporte_dans_la_dao() {
 		//fonctionne sans l'annotation transactionnel car l'annotation se trouve fixée pour la classe dao
 		studentRepository.retriveStudentPassportUpdate();
+	}
+	
+	@Test
+	@Transactional
+	public void testSetAddressDetails() {
+
+		Student student = entityManager.find(Student.class, 20001L);
+		student.setAddress(new Address("line1", "line2", "city"));
+		entityManager.flush();
 	}
 
 	

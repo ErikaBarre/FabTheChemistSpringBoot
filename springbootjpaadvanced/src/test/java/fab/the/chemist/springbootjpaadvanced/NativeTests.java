@@ -49,6 +49,25 @@ public class NativeTests {
 		
 		assertTrue(true);
 	}
+	
+	
+	//les query native n'utilise pas les annotations du softdelete, il faut ajoute une clause where à la requete
+	//ici 0 signifie "false"
+	@Test
+	public void testDeletedNative() {
+		Query query = entityManager.createNativeQuery("select * from fab_course where co_id_deleted=0");
+		List lc = query.getResultList();
+		
+		logger.info("{}",lc);
+		
+//		for(Course c : lc) {
+//			logger.info("native {}", c.toString()());
+//		}		
+		
+		
+		assertTrue(true);
+	}
+
 
 	
 	@Test
