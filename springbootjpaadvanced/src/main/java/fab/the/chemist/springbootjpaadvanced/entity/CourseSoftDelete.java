@@ -19,6 +19,7 @@ import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.PreRemove;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -26,27 +27,45 @@ import org.hibernate.annotations.SQLDelete;
 //import org.hibernate.annotations.NamedNativeQueries;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.Where;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 //SOFT DELETE
-//on n'a pas envie d'un delete de perdre ce qu'on a en base de données mais de stocké quelques part ce qui a été effacé
-//dans "course" ,on ajoute une propriété supplémentaire 
-
+//il s'agit d'un deleted pour lequel auquel record n'est effacé en base de données
+//il s'agit d'un requete qui élimine ce dont on ne veut pas voir dans le retour. 
+//dans ce cas, on a ajouté un flag 
+//(qui devra aussi être colonne en base de données sinon une erreur sera déclenchée) 
+//qui marque ce dont on ne veut pas garder
+//on utilera pour se faire les annotation @sqldelete et @where
 
 @Entity
 @Table(name="FAB_COURSE")
 //on doit ajouter une hibernate annotation (concernant cette propriété isdeleted)
 //pour deleted completement, on place cette propriété à true
 //il faudra ajouter un champs à la table (sinon erreur au lancement de l'application)
+//ensuite il faudra préciser une methode preRemove car hibernate met à jour le champ en base de données concernant la colonne isdeleted
+//MAIS la valeur de la propriété isdeleted dans la classe "course" n'est pas modifiée. Hibernate n'agit pas desssus  
+//preRemove est une life cycle method , il va modifié la valeur de la propriété de la classe avant que ne se déclenche la modification de la valeur dans la colonne isdeleted en DB
+//il existe d'autre méthode life cycle
+//postLoad postPersist postUpdate (méthode qui se déclenche après) prePersist preUpdate preRemove (methode qui se déclenche avant)
 @SQLDelete(sql="update FAB_COURSE set CO_IS_DELETED=true where CO_ID=?")
-@Where(clause="")
+@Where(clause="CO_IS_DELETED=false")
 public class CourseSoftDelete {
 
+	private static Logger logger = LoggerFactory.getLogger(CourseSoftDelete.class);
+	
 	//propriété pour gerer le soft delete
 	//ajout d'une colonne en base de données
 	@Column(name="CO_IS_DELETE")
 	private boolean isDeleted ; 
+	
+	@PreRemove
+	private void preRemove() {
+		logger.info("setting isdeleted to true");
+		this.isDeleted=true;
+	}
 	
 	@Id
 	@GeneratedValue

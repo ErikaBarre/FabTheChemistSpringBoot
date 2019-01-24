@@ -21,11 +21,24 @@ insert into FAB_STUDENT (ST_ID, ST_NAME, ST_PASSPORT_ID) values (20001, 'James',
 insert into FAB_STUDENT (ST_ID, ST_NAME, ST_PASSPORT_ID) values (20002, 'Erika',30002);
 insert into FAB_STUDENT (ST_ID, ST_NAME, ST_PASSPORT_ID) values (20003, 'Joe',30003);
 insert into FAB_STUDENT (ST_ID, ST_NAME, ST_PASSPORT_ID) values (20004, 'Jessie',30004);
-
+/*
 insert into FAB_REVIEW (RE_ID, RE_RATING, RE_DESCRIPTION, RE_COURSE_ID) values (40001, '4', 'Good lesson',10001 );
 insert into FAB_REVIEW (RE_ID, RE_RATING, RE_DESCRIPTION, RE_COURSE_ID) values (40002, '4','Awesomme Good lesson',10001);
 insert into FAB_REVIEW (RE_ID, RE_RATING, RE_DESCRIPTION, RE_COURSE_ID) values (40003, '4','very Good lesson',10003);
 insert into FAB_REVIEW (RE_ID, RE_RATING, RE_DESCRIPTION, RE_COURSE_ID) values (40004, '4','super Good lesson',10004);
+*/
+/* ENUM */
+/* ordinal
+insert into FAB_REVIEW (RE_ID, RE_RATING, RE_DESCRIPTION, RE_COURSE_ID) values (40001, 4, 'Good lesson',10001 );
+insert into FAB_REVIEW (RE_ID, RE_RATING, RE_DESCRIPTION, RE_COURSE_ID) values (40002, 4,'Awesomme Good lesson',10001);
+insert into FAB_REVIEW (RE_ID, RE_RATING, RE_DESCRIPTION, RE_COURSE_ID) values (40003, 4,'very Good lesson',10003);
+insert into FAB_REVIEW (RE_ID, RE_RATING, RE_DESCRIPTION, RE_COURSE_ID) values (40004, 4,'super Good lesson',10004);
+*/
+/* string (a preciser dans la classe entite au niveau de la propriété enum  */
+insert into FAB_REVIEW (RE_ID, RE_RATING, RE_DESCRIPTION, RE_COURSE_ID) values (40001, 'FOUR', 'Good lesson',10001 );
+insert into FAB_REVIEW (RE_ID, RE_RATING, RE_DESCRIPTION, RE_COURSE_ID) values (40002, 'FOUR','Awesomme Good lesson',10001);
+insert into FAB_REVIEW (RE_ID, RE_RATING, RE_DESCRIPTION, RE_COURSE_ID) values (40003, 'FOUR','very Good lesson',10003);
+insert into FAB_REVIEW (RE_ID, RE_RATING, RE_DESCRIPTION, RE_COURSE_ID) values (40004, 'FOUR','super Good lesson',10004);
 
 insert into FAB_COURSE_STUDENT(CS_COURSE_ID, CS_STUDENT_ID) values (10001, 20001);
 insert into FAB_COURSE_STUDENT(CS_COURSE_ID, CS_STUDENT_ID) values (10002, 20001);

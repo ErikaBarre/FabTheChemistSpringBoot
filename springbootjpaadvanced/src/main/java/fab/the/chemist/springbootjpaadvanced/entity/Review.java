@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -27,7 +29,9 @@ public class Review {
 	private Long id;
 		
 	@Column(name="RE_RATING", nullable=false)
-	private String rating; 
+	@Enumerated(value=EnumType.STRING) //on placera en base donne l'identifiant de l'enum
+	private ReviewRating rating;
+	//private String rating; 
 	
 	@Column(name="RE_DESCRIPTION")
 	private String description; 
@@ -49,7 +53,7 @@ public class Review {
 	
 	protected Review() {}
 	
-	public Review(String rating, String description) {
+	public Review(ReviewRating rating, String description) {
 		super();
 		this.rating = rating;
 		this.description = description;
@@ -63,11 +67,11 @@ public class Review {
 		this.id = id;
 	}
 	
-	public String getRating() {
+	public ReviewRating getRating() {
 		return rating;
 	}
 
-	public void setRating(String rating) {
+	public void setRating(ReviewRating rating) {
 		this.rating = rating;
 	}
 	public String getDescription() {

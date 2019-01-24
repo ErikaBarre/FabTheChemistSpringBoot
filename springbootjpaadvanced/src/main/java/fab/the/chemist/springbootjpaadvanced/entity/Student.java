@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -26,6 +27,10 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Table(name="FAB_STUDENT")
 public class Student {
 
+	//on ne veut pas creer de table Address, on veut juste compléter la table student
+	@Embedded
+	private Address address;
+	
 	@Id
 	@GeneratedValue
 	@Column(name="ST_ID")
@@ -112,6 +117,14 @@ public class Student {
 		this.courses.remove(course);
 	}
 	
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
 	@Override
 	public String toString() {
 		return "Student [id=" + id + ", name=" + name + "]";

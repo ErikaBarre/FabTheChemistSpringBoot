@@ -1,5 +1,6 @@
 package fab.the.chemist.springbootjpaadvanced.repository;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -13,19 +14,27 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import fab.the.chemist.springbootjpaadvanced.entity.Course;
+import fab.the.chemist.springbootjpaadvanced.entity.Employee;
 import fab.the.chemist.springbootjpaadvanced.entity.Review;
+import fab.the.chemist.springbootjpaadvanced.utils.ApplicationQueries;
+import fab.the.chemist.springbootjpaadvanced.utils.ApplicationQueries.ApplicationQuery;
 
 @Transactional
 @Repository
 public class CourseRepository {
 
-	private Logger logger = LoggerFactory.getLogger(CourseRepository.class);
+	private static Logger logger = LoggerFactory.getLogger(CourseRepository.class);
 	
 	@Autowired
 	EntityManager entityManager;
 	
 	public Course findById(long id){
 		return entityManager.find(Course.class, id);
+	}
+	
+	public List<Course> findAll(){
+		//en jpql la table correspond à l'identifiant de classe
+		return entityManager.createQuery("select c from Course c", Course.class).getResultList();
 	}
 	
 	public Course save(Course course){
@@ -139,6 +148,18 @@ public class CourseRepository {
 		}		
 		
 		
+		
+	}
+	
+	public void excuteScriptFromFile() throws IOException {
+		String sql = ApplicationQueries.getQuery(ApplicationQuery.RequestOne);
+		logger.info("sql ****** \n {}", sql);
+		
+		Query listresult = entityManager.createNativeQuery(sql);
+		List<Course> lc = listresult.getResultList();
+		for(Course c : lc) {
+			logger.info("JpqlNamesQuery( {}", c.getName());
+		}	
 		
 	}
 	

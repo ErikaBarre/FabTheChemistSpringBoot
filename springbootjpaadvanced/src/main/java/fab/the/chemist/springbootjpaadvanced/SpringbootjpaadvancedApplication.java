@@ -18,6 +18,7 @@ import fab.the.chemist.springbootjpaadvanced.entity.Employee;
 import fab.the.chemist.springbootjpaadvanced.entity.FullTimeEmployee;
 import fab.the.chemist.springbootjpaadvanced.entity.PartTimeEmployee;
 import fab.the.chemist.springbootjpaadvanced.entity.Review;
+import fab.the.chemist.springbootjpaadvanced.entity.ReviewRating;
 import fab.the.chemist.springbootjpaadvanced.entity.Student;
 import fab.the.chemist.springbootjpaadvanced.repository.CourseRepository;
 import fab.the.chemist.springbootjpaadvanced.repository.EmployeeRepository;
@@ -69,13 +70,13 @@ public class SpringbootjpaadvancedApplication implements CommandLineRunner {
 		//repository.playWithEntityManagerRefresh();
 		
 		//studentRepository.saveStudentWithPassport("Luke", "DD78856");
-		/*
+		
 		List<Review> reviews = new ArrayList<Review>();
-		reviews.add(new Review("4", "mega very nice review"));
-		reviews.add(new Review("5", "awsome dude"));
+		reviews.add(new Review(ReviewRating.FOUR, "mega very nice review"));
+		reviews.add(new Review(ReviewRating.FIVE, "awsome dude"));
 			
 		repository.addReviewsForCourse(10001L,reviews);
-		*/
+		
 		/*
 		studentRepository.insertStudentInCourse();
 		studentRepository.insertStudentInCourse(new Student("Jack"), new Course("Microservices strategy"));
@@ -99,7 +100,9 @@ public class SpringbootjpaadvancedApplication implements CommandLineRunner {
 		sql = ApplicationQueries.readFromInputStream(ApplicationQuery.RequestOne);
 		logger.info("sql ****** \n {}", sql);
 		
-		repository.nativen();
+		//entityManager.createNativeQuery(line).executeUpdate();
+		
+		//repository.nativen();
 		
 		
 	}
