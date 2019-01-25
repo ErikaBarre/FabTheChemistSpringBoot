@@ -183,8 +183,8 @@ public class Course {
 	//cela pose des problèmes de performance
 	@Override
 	public String toString() {
-		//return "Course [id=" + id + ", name=" + name + "]";
-		return "Course [id=" + id + ", name=" + name + "] , Reviews: " + reviews;
+		return "Course [id=" + id + ", name=" + name + "]";
+		//return "Course [id=" + id + ", name=" + name + "] , Reviews: " + reviews; // a eviter 
 	}
 
 }
