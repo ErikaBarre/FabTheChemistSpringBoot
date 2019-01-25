@@ -176,9 +176,15 @@ public class Course {
 		this.students.remove(student);
 	}
 
+	
+	//eclipse quad il forme le tostring ne place pas les FK comme review
+	//car si review est placer dans le tostring , lors de l'exécution hibernate 
+	//va effectuer un deuxième select sur review 
+	//cela pose des problèmes de performance
 	@Override
 	public String toString() {
-		return "Course [id=" + id + ", name=" + name + "]";
+		//return "Course [id=" + id + ", name=" + name + "]";
+		return "Course [id=" + id + ", name=" + name + "] , Reviews: " + reviews;
 	}
 
 }
