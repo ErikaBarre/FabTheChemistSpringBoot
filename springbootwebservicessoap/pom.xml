@@ -46,6 +46,33 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<!-- ajout du plugin jaxb2 pour convertir la xsd en java object 
+			il faut indiqué le repertoire de la xsd et le repertoire où seront constitué les object java
+			Preciser clear folder à false sinon il efface TOUT ce qui se trouve present dans la partie java-->
+					<!-- https://www.mojohaus.org/jaxb2-maven-plugin/Documentation/v2.2/example_xjc_basic.html -->
+			 <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>jaxb2-maven-plugin</artifactId>
+            <version>1.6</version>
+            <executions>
+                <execution>
+                    <id>xjc</id>
+                    <goals>
+                        <goal>xjc</goal>
+                    </goals>
+                </execution>
+            </executions>
+            <configuration>
+              
+                <schemaDirectory>${project.basedir}/src/main/resources</schemaDirectory>
+                <outputDirectory>${project.basedir}/src/main/java</outputDirectory>
+                <packageName>fab.the.chemist.schema</packageName>
+                
+                 <clearOutputDir>false</clearOutputDir>
+            </configuration>
+        </plugin> 
+			
+			
 		</plugins>
 	</build>
 
