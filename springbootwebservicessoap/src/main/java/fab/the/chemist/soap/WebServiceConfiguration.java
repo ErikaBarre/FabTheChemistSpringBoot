@@ -1,8 +1,5 @@
 package fab.the.chemist.soap;
 
-import javax.servlet.Servlet;
-import javax.servlet.ServletRegistration;
-
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -27,25 +24,27 @@ public class WebServiceConfiguration {
 	//il faut mapper la servlet à uri
 	
 	@Bean
-	public ServletRegistrationBean messageDistpacherServlet (ApplicationContext context){
+	public ServletRegistrationBean messageDispatcherServlet(ApplicationContext context) {
 		MessageDispatcherServlet messageDispatcherServlet = new MessageDispatcherServlet();
 		messageDispatcherServlet.setApplicationContext(context);
 		messageDispatcherServlet.setTransformWsdlLocations(true);
 		return new ServletRegistrationBean(messageDispatcherServlet, "/ws/*");
 	}
 	
-	@Bean(name="courses")
-	public DefaultWsdl11Definition defaultWsdl11Definition (XsdSchema xsdSchema) {
-		DefaultWsdl11Definition defaultWsdl11Definition = new DefaultWsdl11Definition();
-		defaultWsdl11Definition.setPortTypeName("CoursePort");
-		defaultWsdl11Definition.setSchema(xsdSchema);
-		defaultWsdl11Definition.setLocationUri("/ws/");
-		defaultWsdl11Definition.setTargetNamespace("http://fabthechemist.net/courses");
-		return defaultWsdl11Definition;
+	@Bean(name = "courses")
+	public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema coursesSchema) {
+		DefaultWsdl11Definition definition = new DefaultWsdl11Definition();
+		definition.setPortTypeName("CoursePort");
+		definition.setTargetNamespace("http://fabthechemist.net/courses");
+		definition.setLocationUri("/ws");
+		definition.setSchema(coursesSchema);
+		return definition;
 	}
 	
 	@Bean
 	public XsdSchema coursesSchema() {
 		return new SimpleXsdSchema(new ClassPathResource("course.xsd"));
 	}
+	
+	
 }

@@ -14,9 +14,26 @@ public class CourseDetailsEndPoint {
 
 	//l'annotation @RequestPayload permet la conversion de xml request vers java
 	//l'annotation @ResponsePayload permet la conversion de java vers xml response
+	@PayloadRoot(namespace = "http://fabthechemist.net/courses", localPart = "GetCourseDetailsRequest")
+	@ResponsePayload
+	public GetCourseDetailsResponse processCourseDetailsRequest(@RequestPayload GetCourseDetailsRequest request) {
+		GetCourseDetailsResponse response = new GetCourseDetailsResponse();
+		
+		CourseDetails courseDetails = new CourseDetails();
+		courseDetails.setId(request.getId());
+		courseDetails.setName("Microservices Course");
+		courseDetails.setDescription("That would be a wonderful course!");
+		
+		response.setCourseDetails(courseDetails);
+		
+		return response;
+	}
+	
+	/*
 	@PayloadRoot(namespace="http://fabthechemist.net/courses", localPart="GetCourseDetailsRequest")
 	@ResponsePayload
-	public GetCourseDetailsResponse processCourseDetailsRequest(@RequestPayload GetCourseDetailsRequest getCourseDetailsRequest) {
+	public GetCourseDetai
+	lsResponse processCourseDetailsRequest(@RequestPayload GetCourseDetailsRequest getCourseDetailsRequest) {
 		GetCourseDetailsResponse responsex = new GetCourseDetailsResponse();
 		CourseDetails courseDetails = new CourseDetails();
 		courseDetails.setId(1);
@@ -26,5 +43,6 @@ public class CourseDetailsEndPoint {
 		
 		return responsex;
 	}
+	*/
 	
 }
