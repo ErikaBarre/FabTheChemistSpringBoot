@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Built-By: fabrice
+Build-Jdk: 10.0.2
+Implementation-Title: soap-web-services
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: fab.the.chemist.soap.webservices
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/soap-web-services
+Created-By: Maven Integration for Eclipse
+
