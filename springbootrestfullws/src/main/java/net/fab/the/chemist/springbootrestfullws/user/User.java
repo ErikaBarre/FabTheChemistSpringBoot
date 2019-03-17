@@ -5,8 +5,16 @@ import java.util.Date;
 public class User {
 
 	private int id;
-	private String name; 
+
+	
+
+	private String name;
+
 	private Date birthDate;
+	
+	protected User() {
+		
+	}
 	
 	public User(int id, String name, Date birthDate) {
 		super();
@@ -14,28 +22,34 @@ public class User {
 		this.name = name;
 		this.birthDate = birthDate;
 	}
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public Date getBirthDate() {
 		return birthDate;
 	}
+
 	public void setBirthDate(Date birthDate) {
 		this.birthDate = birthDate;
 	}
+
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", birthDate=" + birthDate + "]";
+		return String.format("User [id=%s, name=%s, birthDate=%s]", id, name, birthDate);
 	}
-	
-	
+
 }
