@@ -29,7 +29,7 @@ public class InternationalisationTest {
 			}
 
 			BufferedReader br = new BufferedReader(new InputStreamReader(
-				(conn.getInputStream())));
+				(conn.getInputStream()))); 
 
 			String output;
 			System.out.println("Output from Server .... \n");
