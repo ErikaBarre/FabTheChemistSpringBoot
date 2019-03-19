@@ -1,8 +1,9 @@
 package net.fab.the.chemist.springbootrestfullws.user;
 
 import java.net.URI;
-import java.util.Iterator;
 import java.util.List;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import org.springframework.hateoas.EntityLinks;;
 
 @RestController
 public class UserController {
@@ -34,11 +37,40 @@ public class UserController {
 		return user;
 	}
 	
+	@GetMapping("/users2/{id}")
+	public User retrieveUser2(@PathVariable(name="id") int id) {
+		User user = service.findById(id);
+		
+		/*
+		    import org.springframework.hateoas.EntityModel;
+    import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
+
+    EntityModel<User> model = new EntityModel<>(user.get());
+    WebMvcLinkBuilder linkTo = linkTo(methodOn(this.getClass()).retrieveAllUsers());
+    model.add(linkTo.withRel("all-users"));
+		
+		*/
+		//Resource<User> resource = new Resource<User>(user);
+		//ControllerLinkBuilder linkTo = LinkedTransferQueue<E>
+		
+		//import org.springframework.hateoas.EntityModel;
+	    //import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
+
+//	    EntityModel<User> model = new EntityModel<>(user.get());
+//	    WebMvcLinkBuilder linkTo = linkTo(methodOn(this.getClass()).retrieveAllUsers());
+//	    model.add(linkTo.withRel("all-users"));
+		
+		if(user == null) {
+			throw new NotFoundUserException("wrong data : object not found for this id :" + id);
+		}
+		return user;
+	}
+	
 	//
 	// input - details of user
 	// output - CREATED & Return the created URI
 	@PostMapping("/users")
-	public ResponseEntity<Object> createUser(@RequestBody User user){
+	public ResponseEntity<Object> createUser(@Valid @RequestBody User user){
 		User savedUser = service.save(user);
 		
 		//on crée l'url de création du user

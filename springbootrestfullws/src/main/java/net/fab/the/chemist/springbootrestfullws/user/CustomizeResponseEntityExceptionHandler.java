@@ -2,9 +2,11 @@ package net.fab.the.chemist.springbootrestfullws.user;
 
 import java.util.Date;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,7 +39,17 @@ public class CustomizeResponseEntityExceptionHandler extends ResponseEntityExcep
 		
 		ValidationException validationException = new ValidationException(new Date(), exception.getMessage(), webRequest.getDescription(false));
 				
-		return  new ResponseEntity(validationException, HttpStatus.INTERNAL_SERVER_ERROR);
+		return  new ResponseEntity(validationException, HttpStatus.NOT_FOUND);
+		
+	}
+	
+	@Override
+	public final ResponseEntity<Object> handleMethodArgumentNotValid (MethodArgumentNotValidException exception,
+			HttpHeaders httpHeaders, HttpStatus httpStatus, WebRequest webRequest){
+		
+		ValidationException validationException = new ValidationException(new Date(), exception.getMessage(), exception.getBindingResult().toString());
+				
+		return  new ResponseEntity(validationException, HttpStatus.BAD_REQUEST);
 		
 	}
 	
