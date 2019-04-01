@@ -5,14 +5,20 @@ import java.util.Date;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel("all details about users") //swagger
 public class User {
 
 	private int id;
 
 	//verification de la taille, il faut qu'il y ait @Valid dans le controller pour activer
+	@ApiModelProperty(notes="Name should have content 2 characters")
 	@Size(min=2, message="Name should have content 2 characters")
 	private String name;
 
+	@ApiModelProperty(notes="Date has to be in past") 
 	@Past(message="Date has to be in past")
 	private Date birthDate;
 	
