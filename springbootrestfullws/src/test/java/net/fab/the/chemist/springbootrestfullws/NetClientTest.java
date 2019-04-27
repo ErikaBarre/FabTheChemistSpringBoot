@@ -13,13 +13,31 @@ import java.net.URL;
 
 import org.junit.Test;
 
+import sun.misc.BASE64Encoder;
+
 public class NetClientTest {
 
+	/*
+	
+	//si ajout de springsecurity alors on doit ajouter cela
+			//mot de passe fournit par srping lors du lancement de l'application
+			
+			BASE64Encoder enc = new sun.misc.BASE64Encoder();
+		      String userpassword = "user" + ":" + "980debe1-7e9e-4101-8931-ebbc3b0cc12f" ;
+		      String encodedAuthorization = enc.encode( userpassword.getBytes() );
+		      conn.setRequestProperty("Authorization", "Basic "+  encodedAuthorization);
+		      
+	ou bien prendre celui qu'on place dans application.properties
+	
+	String userpassword = "Erika" + ":" + "Barre" ;
+	
+	
+	*/
 	@Test
 	public void retrieveAllUsersTest() {
 		  try {
 
-			URL url = new URL("http://localhost:8080//users");
+			URL url = new URL("http://localhost:8080/users");
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
 			conn.setRequestProperty("Accept", "application/json");
@@ -55,7 +73,7 @@ public class NetClientTest {
 	@Test
 	public void retrieveUserTest() {
 		  try {
-				URL url = new URL("http://localhost:8080//users//1");
+				URL url = new URL("http://localhost:8080/users/1");
 				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 				conn.setRequestMethod("GET");
 				conn.setRequestProperty("Accept", "application/json");

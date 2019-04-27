@@ -4,7 +4,9 @@ import static org.junit.Assert.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -13,40 +15,34 @@ import org.junit.Test;
 
 import sun.misc.BASE64Encoder;
 
-public class InternationalisationTest {
+public class VersioningTest {
 
-	/*
-	
-	//si ajout de springsecurity alors on doit ajouter cela
+	@Test
+	public void versionHeaderTest() {
+		  try {
+
+			URL url = new URL("http://localhost:8080/person/header");
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("GET");
+			conn.setRequestProperty("Accept", "application/json");
+			conn.setRequestProperty("X-API-VERSION", "1");
+			
+			//si ajout de springsecurity alors on doit ajouter cela
 			//mot de passe fournit par srping lors du lancement de l'application
 			
 			BASE64Encoder enc = new sun.misc.BASE64Encoder();
-		      String userpassword = "user" + ":" + "980debe1-7e9e-4101-8931-ebbc3b0cc12f" ;
+		      String userpassword = "Erika" + ":" + "Barre" ;
 		      String encodedAuthorization = enc.encode( userpassword.getBytes() );
 		      conn.setRequestProperty("Authorization", "Basic "+  encodedAuthorization);
 		      
-		      ou bien prendre celui qu'on place dans application.properties
-	
-	String userpassword = "Erika" + ":" + "Barre" ;
-	
-	*/
-	@Test
-	public void retrieveAllUsersTest() {
-		  try {
-
-			URL url = new URL("http://localhost:8080/hello-world-internalization");
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			conn.setRequestMethod("GET");
-			conn.setRequestProperty("Accept", "application/json");
-			conn.setRequestProperty("Accept-Language", "en");
-
+		      
 			if (conn.getResponseCode() != 200) {
 				throw new RuntimeException("Failed : HTTP error code : "
 						+ conn.getResponseCode());
 			}
 
 			BufferedReader br = new BufferedReader(new InputStreamReader(
-				(conn.getInputStream()))); 
+				(conn.getInputStream())));
 
 			String output;
 			System.out.println("Output from Server .... \n");
@@ -68,23 +64,23 @@ public class InternationalisationTest {
 		  assertTrue(true);
 	}
 	
+	
 	@Test
-	public void internationalisationTest() {
+	public void versionProducesTest() {
 		  try {
 
-			URL url = new URL("http://localhost:8080/hello-world-internalization2");
+			URL url = new URL("http://localhost:8080/person/produces");
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
-			conn.setRequestProperty("Accept", "application/json");
-			conn.setRequestProperty("Accept-Language", "en");
-
+			conn.setRequestProperty("Accept", "application/vnd.company.app-v2+json");
+			//conn.setRequestProperty("X-API-VERSION", "1");
 			if (conn.getResponseCode() != 200) {
 				throw new RuntimeException("Failed : HTTP error code : "
 						+ conn.getResponseCode());
 			}
 
 			BufferedReader br = new BufferedReader(new InputStreamReader(
-				(conn.getInputStream()))); 
+				(conn.getInputStream())));
 
 			String output;
 			System.out.println("Output from Server .... \n");
@@ -105,5 +101,6 @@ public class InternationalisationTest {
 		  }
 		  assertTrue(true);
 	}
-
+	
+	
 }
